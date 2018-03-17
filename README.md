@@ -8,9 +8,8 @@ apt install adb go-mtpfs libdtkwidget2 libdtkwidget-dev libtag1-dev libtag1v5
 ```
 
 ## 依赖介绍
-- adb程序检测手机的插入和拔出
+- adb程序检测手机的插入和拔出和获取手机信息
 - go-mtpfs挂载设备存储
-- fusermount卸载设备存储
 - taglib获取歌曲信息
 
 ## 使用
@@ -20,6 +19,7 @@ apt install adb go-mtpfs libdtkwidget2 libdtkwidget-dev libtag1-dev libtag1v5
 - 界面美化
 - device页面中添加设备详细信息
 - 加载文件的速度(多线程和mtp工具的性能)
+- 加载文件完成后初始化程序页面的速度
 - 文件管理页面删除音乐文件时同步移除音乐页面中的数据
 
 ## 待增加功能
