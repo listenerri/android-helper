@@ -104,3 +104,6 @@ DEPENDPATH += /usr/include/taglib
 
 RESOURCES += \
     images.qrc
+
+DISTFILES += \
+    README.md
