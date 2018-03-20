@@ -90,17 +90,8 @@ HEADERS += \
     tools/taglibtool.h \
     filesystemmodelfixed.h
 
-unix:!macx: LIBS += -L/usr/lib/x86_64-linux-gnu/ -ldtkcore
-INCLUDEPATH += /usr/include/libdtk-2.0.7/DCore
-DEPENDPATH += /usr/include/libdtk-2.0.7/DCore
-
-unix:!macx: LIBS += -L/usr/lib/x86_64-linux-gnu/ -ldtkwidget
-INCLUDEPATH += /usr/include/libdtk-2.0.7/DWidget
-DEPENDPATH += /usr/include/libdtk-2.0.7/DWidget
-
-unix:!macx: LIBS += -L/usr/lib/x86_64-linux-gnu/ -ltag
-INCLUDEPATH += /usr/include/taglib
-DEPENDPATH += /usr/include/taglib
+CONFIG += c++11 link_pkgconfig
+PKGCONFIG += dtkcore dtkwidget taglib
 
 RESOURCES += \
     images.qrc
