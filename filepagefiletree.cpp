@@ -94,7 +94,7 @@ void FilePageFileTree::newDir(bool inSub)
 {
     QString text = QInputDialog::getText(this, "New dir", "input the name of new dir");
     if (text.count() != 0) {
-        qDebug() << "(FilePageFileTree::showContextMenu) new dir name:" << text;
+        qDebug() << "(FilePageFileTree::newDir) new dir name:" << text;
         QModelIndexList selectedIndexes = treeView->selectionModel()->selectedRows();
         if (selectedIndexes.count() != 0) {
             // 如果当前有选中项则取其第一个作为新建目录的index
@@ -103,6 +103,10 @@ void FilePageFileTree::newDir(bool inSub)
                 // 新建选中项的子文件夹
                 if (fileSystemModel->isDir(index)) {
                     treeView->scrollTo(fileSystemModel->mkdir(index,text));
+                } else {
+                    DDialog wDialog("Warning:", "Can not new sub_dir in a file.", this);
+                    wDialog.addButton("ok", true, DDialog::ButtonWarning);
+                    wDialog.exec();
                 }
             } else {
                 // 新建选中项的同级文件夹
