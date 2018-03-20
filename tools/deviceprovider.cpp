@@ -93,9 +93,17 @@ void DeviceProvider::onAdbProcessExecFailed(AdbTool::ProcessType processType)
 
 void DeviceProvider::onDeviceDetailInfoReady(QMap<QString, QString> detailInfoMap)
 {
-    m_devices.last().setModel(detailInfoMap.value("ro.product.model"));
-    m_devices.last().setBrand(detailInfoMap.value("ro.product.brand"));
-    m_devices.last().setAndroidRelease(detailInfoMap.value("ro.build.version.release"));
+    QString model = "Device_Name";
+    if (detailInfoMap.contains("ro.product.codename")) {
+        model = detailInfoMap.value("ro.product.codename");
+    } else if (detailInfoMap.contains("ro.product.model")) {
+        model = detailInfoMap.value("ro.product.model");
+    } else if (detailInfoMap.contains("ro.product.model")) {
+        model = detailInfoMap.value("ro.product.model");
+    }
+    m_devices.last().setModel(model);
+    m_devices.last().setBrand(detailInfoMap.value("ro.product.brand", "Device_Brand"));
+    m_devices.last().setAndroidRelease(detailInfoMap.value("ro.build.version.release", "Android_Version"));
     m_devices.last().setDetailInfo(detailInfoMap);
     qDebug() << "(DeviceProvider::onDeviceDetailInfoReady) device:" << m_devices.last().getDeviceIndicator() << "plug in";
     qDebug() << "(DeviceProvider::onDeviceDetailInfoReady) emit deviceCountChanged";

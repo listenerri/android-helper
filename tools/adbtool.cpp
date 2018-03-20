@@ -26,7 +26,7 @@ void AdbTool::startProcess(AdbTool::ProcessType processType, QString deviceSeria
         doStart("devices", deviceSerialNumber);
         break;
     case GetDeviceDetailInfo:
-        doStart("shell cat /system/build.prop", deviceSerialNumber);
+        doStart("shell getprop", deviceSerialNumber);
         break;
     default:
         qDebug() << "(AdbTool::startProcess) case to default!";
@@ -70,6 +70,7 @@ void AdbTool::handleResult(int exitCode, QProcess::ExitStatus exitStatus)
             break;
         }
     } else {
+        qDebug() << "(AdbTool::handleResult) adb error output:" << QString(m_adbProcess.readAllStandardError());
         qDebug() << "(AdbTool::handleResult) adb exec failed!!!!" << "exitCode: " << exitCode << "exitStatus: " << exitStatus;
         emit processExecFailed(m_processType);
     }
@@ -115,13 +116,14 @@ void AdbTool::handleDeviceDetailInfo(QString resultString)
 
     QMap<QString, QString> resultStringMap;
     foreach (QString item, resultStringList) {
-        if (item.startsWith("#") || !item.contains("=")) {
-            // 不需要以"#"开头的注释行
-            // 不需要不包含"="的无用行
-            continue;
-        }
-        QStringList itemList = item.split("=");
-        resultStringMap.insert(itemList[0], itemList[1]);
+        QStringList itemList = item.split(":");
+        QString key, value;
+        key = QString(itemList.at(0)).trimmed().mid(1);
+        value = QString(itemList.at(1)).trimmed().mid(1);
+        key.chop(1);
+        value.chop(1);
+        resultStringMap.insert(key, value);
     }
+    qDebug() << "(AdbTool::handleDeviceDetailInfo) device info map:" << resultStringMap;
     emit deviceDetailInfoReady(resultStringMap);
 }
