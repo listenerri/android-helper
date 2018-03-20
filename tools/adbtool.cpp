@@ -43,6 +43,7 @@ void AdbTool::doStart(QString arg, QString deviceSerialNumber)
     // argument这个list中不能有空格!!!!!!!!!
     args << arg.split(" ", QString::SkipEmptyParts);
 
+    qDebug() << "(AdbTool::doStart) start adb with arg:" << args;
     m_adbProcess.setArguments(args);
     m_adbProcess.start();
     m_adbProcess.waitForFinished();
@@ -53,6 +54,7 @@ void AdbTool::handleResult(int exitCode, QProcess::ExitStatus exitStatus)
     // 获取输出信息
     QByteArray result = m_adbProcess.readAllStandardOutput();
     QString resultString(result);
+    qDebug() << "(AdbTool::handleResult) adb output:" << resultString;
 
     // 如果adb程序正常运行按需要处理数据
     if (exitCode == 0 && exitStatus == QProcess::NormalExit) {
@@ -68,15 +70,14 @@ void AdbTool::handleResult(int exitCode, QProcess::ExitStatus exitStatus)
             break;
         }
     } else {
-        qDebug() << "(AdbTool::handleResult) adb exec failed!!!!";
+        qDebug() << "(AdbTool::handleResult) adb exec failed!!!!" << "exitCode: " << exitCode << "exitStatus: " << exitStatus;
         emit processExecFailed(m_processType);
     }
 }
 
 void AdbTool::onErrorOccurred(QProcess::ProcessError error)
 {
-    Q_UNUSED(error);
-    qDebug() << "(AdbTool::onErrorOccurred) adb exec failed!!!!";
+    qDebug() << "(AdbTool::onErrorOccurred) adb exec failed!!!!" << error;
     emit processExecFailed(m_processType);
 }
 
