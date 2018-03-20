@@ -91,12 +91,12 @@ HEADERS += \
     filesystemmodelfixed.h
 
 unix:!macx: LIBS += -L/usr/lib/x86_64-linux-gnu/ -ldtkcore
-INCLUDEPATH += /usr/include/libdtk-2.0/DCore
-DEPENDPATH += /usr/include/libdtk-2.0/DCore
+INCLUDEPATH += /usr/include/libdtk-2.0.7/DCore
+DEPENDPATH += /usr/include/libdtk-2.0.7/DCore
 
 unix:!macx: LIBS += -L/usr/lib/x86_64-linux-gnu/ -ldtkwidget
-INCLUDEPATH += /usr/include/libdtk-2.0/DWidget
-DEPENDPATH += /usr/include/libdtk-2.0/DWidget
+INCLUDEPATH += /usr/include/libdtk-2.0.7/DWidget
+DEPENDPATH += /usr/include/libdtk-2.0.7/DWidget
 
 unix:!macx: LIBS += -L/usr/lib/x86_64-linux-gnu/ -ltag
 INCLUDEPATH += /usr/include/taglib
