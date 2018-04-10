@@ -1,6 +1,8 @@
 ## 简介
 基于c++/qt, 用于管理Android手机上的文件(多媒体文件).
 
+[点击查看截图](https://github.com/ListenerRi/android-helper/tree/master/screenshots)
+
 ## 依赖
 ``` bash
 # deepin linux
